@@ -34,6 +34,9 @@ const UserForm = ({ touched, errors, status, values }) => {
           Submit
         </button>
       </Form>
+      {users.map(user => (
+        <div key={user.id}>{user.name}</div>
+      ))}
     </div>
   );
 };
@@ -53,7 +56,10 @@ export default withFormik({
   handleSubmit(values, { setStatus, resetForm }) {
     axios
       .post("https://reqres.in/api/users", values)
-      .then(resolve => console.log(resolve))
+      .then(resolve => {
+        setStatus(resolve.data);
+        resetForm();
+      })
       .catch(error => console.log(error));
   }
 })(UserForm);
