@@ -3,13 +3,15 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-const UserForm = () => {
+const UserForm = ({ touched, errors }) => {
   return (
     <div className="container">
       <Form className="form">
         <Field component="input" type="text" name="name" placeholder="Name" className="form__text" />
+        {touched.name && errors.name && <p className="form__error">{errors.name}</p>}
 
         <Field component="input" type="email" name="email" placeholder="Email" className="form__text" />
+        {touched.email && errors.email && <p className="form__error">{errors.email}</p>}
 
         <Field component="input" type="text" name="password" placeholder="Password" className="form__text" />
 
@@ -36,5 +38,8 @@ export default withFormik({
       password: password || "",
       tos: tos || false
     };
-  }
+  },
+  validationSchema: Yup.object().shape({
+    name: Yup.string().required("So...what should we call you?")
+  })
 })(UserForm);
