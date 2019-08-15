@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-const UserForm = ({ touched, errors }) => {
+const UserForm = ({ touched, errors, status, values }) => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (status) {
+      setUsers([...users, status]);
+    }
+  }, [status]);
+
   return (
     <div className="container">
       <Form className="form">
@@ -19,7 +27,7 @@ const UserForm = ({ touched, errors }) => {
           <label htmlFor="tos" className="form__check--label">
             Accept Terms of Service
           </label>
-          <Field type="checkbox" name="tos" className="form__check--box" />
+          <Field type="checkbox" name="tos" checked={values.tos} className="form__check--box" />
         </div>
 
         <button type="submit" className="form__btn">
@@ -41,5 +49,11 @@ export default withFormik({
   },
   validationSchema: Yup.object().shape({
     name: Yup.string().required("So...what should we call you?")
-  })
+  }),
+  handleSubmit(values, { setStatus, resetForm }) {
+    axios
+      .post("https://reqres.in/api/users", values)
+      .then(resolve => console.log(resolve))
+      .catch(error => console.log(error));
+  }
 })(UserForm);
