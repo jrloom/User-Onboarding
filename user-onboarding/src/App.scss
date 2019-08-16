@@ -12,9 +12,22 @@ html {
 
 .container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-signup,
+.container-card {
+  display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 20rem;
+  margin-top: 10px;
+}
+
+.container-checkbox {
+  width: 100%;
+  margin: 30px 0;
+
 }
 
 .form {
@@ -42,7 +55,6 @@ html {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 30px 0;
     &--label {
       order: 2;
       font-size: 1.8rem;
@@ -59,21 +71,35 @@ html {
         background: darkgray;
       }
       &:checked {
-        background: tomato;
+        background: lightcyan;
       }
     }
   }
   &__btn {
     all: unset;
     padding: 1rem 2rem;
-    background: tomato;
+    background: lightslategrey;
     border: 1px solid black;
     border-radius: 5px;
+    color: lightcyan;
     font-size: 1.8rem;
     font-weight: bold;
   }
   &__error {
-    color: darkslategray;
+    color: tomato;
     font-size: 1.3rem;
+  }
+}
+
+.card {
+  margin: 2rem;
+  padding: 2rem;
+  border: 1px solid lightslategray;
+  border-radius: 5px;
+  &__info {
+    font-size: 1.8rem;
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
   }
 }
