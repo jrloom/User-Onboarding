@@ -103,9 +103,6 @@ const UserForm = ({ touched, errors, status, values }) => {
               )
             })}
           </Field>
-          {touched.role &&
-            errors.role &&
-            <p className="form__error">{errors.role}</p>}
 
           <div className="form__check">
             <label htmlFor="tos" className="form__check--label">
