@@ -88,6 +88,9 @@ const UserForm = ({ touched, errors, status, values }) => {
             name='zip'
             placeholder='Zip Code'
             className='form__text' />
+          {touched.zip &&
+            errors.zip &&
+            <p className="form__error">{errors.zip}</p>}
 
           <Field
             component="select"
@@ -175,7 +178,8 @@ export default withFormik({
       .notRequired(),
     zip: Yup
       .string()
-      .required("C'mon..."),
+      .required("C'mon...")
+      .matches(/^[0-9]{5}/, "First five digits"),
     role: Yup
       .boolean()
       .oneOf([true], 'You must choose'),
