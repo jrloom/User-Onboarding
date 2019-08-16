@@ -81,9 +81,12 @@ html {
     background: lightslategrey;
     border: 1px solid black;
     border-radius: 5px;
-    color: lightcyan;
+    color: aliceblue;
     font-size: 1.8rem;
     font-weight: bold;
+    &:hover {
+      cursor: pointer;
+    }
   }
   &__error {
     color: tomato;
