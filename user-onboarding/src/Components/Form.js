@@ -35,27 +35,68 @@ const UserForm = ({ touched, errors, status, values }) => {
     <div className="container">
       <div className="container-signup">
         <Form className="form">
-          <Field component="input" type="text" name="name" placeholder="Name" className="form__text" />
+          <Field
+            component="input"
+            type="text"
+            name="name"
+            placeholder="Name"
+            className="form__text" />
           {touched.name &&
             errors.name &&
             <p className="form__error">{errors.name}</p>}
 
-          <Field component="input" type="text" name="email" placeholder="Email" className="form__text" />
+          <Field
+            component="input"
+            type="text"
+            name="email"
+            placeholder="Email"
+            className="form__text" />
           {touched.email &&
             errors.email &&
             <p className="form__error">{errors.email}</p>}
 
-          <Field component="input" type="text" name="password" placeholder="Password" className="form__text" />
+          <Field
+            component="input"
+            type="text"
+            name="password"
+            placeholder="Password"
+            className="form__text" />
           {touched.password &&
             errors.password &&
             <p className="form__error">{errors.password}</p>}
 
-          <Field component="input" type="text" name="age" placeholder="Age" className='form__text' />
+          <Field
+            component="input"
+            type="text"
+            name="age"
+            placeholder="Age"
+            className='form__text' />
+          {touched.age &&
+            errors.age &&
+            <p className="form__error">{errors.age}</p>}
 
-          <Field component="select" name="role" placeholder="Select a Role" className="form__text">
+          <Field
+            component="input"
+            type='text'
+            name="address"
+            placeholder='Address'
+            className="form__text" />
+
+          <Field
+            component='input'
+            type='text'
+            name='zip'
+            placeholder='Zip Code'
+            className='form__text' />
+
+          <Field
+            component="select"
+            name="role"
+            placeholder="Select a Role"
+            className="form__text">
             {role.map(role => {
               return (
-                <option key={role.id}>{role.role}</option>
+                <option key={role.id} className="form__option">{role.role}</option>
               )
             })}
           </Field>
@@ -70,7 +111,11 @@ const UserForm = ({ touched, errors, status, values }) => {
                 errors.tos &&
                 <p className="form__error">{errors.tos}</p>}
             </label>
-            <Field type="checkbox" name="tos" checked={values.tos} className="form__check--box" />
+            <Field
+              type="checkbox"
+              name="tos"
+              checked={values.tos}
+              className="form__check--box" />
           </div>
 
           <button type="submit" className="form__btn">
@@ -83,6 +128,7 @@ const UserForm = ({ touched, errors, status, values }) => {
           <div key={user.id} className="card">
             <p className="card__info">{user.name}</p>
             <p className="card__info">{user.email}</p>
+            <p className="card__info">{user.age}</p>
             <p className="card__info">{user.role}</p>
             <p className="card__info">Thanks for signing up!</p>
           </div>
@@ -93,11 +139,14 @@ const UserForm = ({ touched, errors, status, values }) => {
 };
 
 export default withFormik({
-  mapPropsToValues({ name, email, password, role, tos }) {
+  mapPropsToValues({ name, email, password, age, address, zip, role, tos }) {
     return {
       name: name || "",
       email: email || "",
       password: password || "",
+      age: age || "",
+      address: address || "",
+      zip: zip || "",
       role: role || "",
       tos: tos || false
     };
@@ -116,6 +165,17 @@ export default withFormik({
       .string()
       .required('You need to do this')
       .min(8, '8 character minimum'),
+    age: Yup
+      .number()
+      .required("We're not judging")
+      .min(18, "When you're older")
+      .max(125, "Let's get real"),
+    address: Yup
+      .string()
+      .notRequired(),
+    zip: Yup
+      .string()
+      .required("C'mon..."),
     role: Yup
       .boolean()
       .oneOf([true], 'You must choose'),
